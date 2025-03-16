@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hooda Atwa - Personal Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3a86ff;
+            --primary-dark: #2563eb;
+            --primary-light: #60a5fa;
+            --secondary-color: #6366f1;
+            --text-color: #1f2937;
+            --text-light: #4b5563;
+            --background-color: #ffffff;
+            --card-background: #f9fafb;
+            --border-color: #e5e7eb;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode {
+            --primary-color: #60a5fa;
+            --primary-dark: #3b82f6;
+            --primary-light: #93c5fd;
+            --secondary-color: #818cf8;
+            --text-color: #f9fafb;
+            --text-light: #d1d5db;
+            --background-color: #111827;
+            --card-background: #1f2937;
+            --border-color: #374151;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .app-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background-color: var(--background-color);
+            box-shadow: 0 2px 4px var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 1.2rem;
+        }
+
+        .profile-header {
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px var(--shadow-color);
+        }
+
+        .profile-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .profile-header p {
+            font-size: 1.2rem;
+            margin: 10px 0 0;
+            opacity: 0.9;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid white;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: var(--card-background);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px var(--shadow-color);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .skill-tag {
+            background-color: var(--primary-light);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background-color: var(--background-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px var(--shadow-color);
+        }
+
+        .project-card-content {
+            padding: 16px;
+        }
+
+        .project-card h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .project-card p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .project-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .project-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .project-link:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .contact-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .contact-option {
+            flex: 1;
+            min-width: 200px;
+            background-color: var(--background-color);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            text-align: center;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .donation-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .donation-method {
+            padding: 20px;
+            background-color: var(--background-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            text-align: center;
+            width: 200px;
+        }
+
+        .donation-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .loader {
+            border: 4px solid var(--border-color);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 40px;
+            height: 40px;
+            margin: 20px auto;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--card-background);
+            color: var(--text-light);
+            margin-top: 40px;
+            border-radius: 8px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-link {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--primary-dark);
+        }
+
+        .github-stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .github-stat {
+            background-color: var(--background-color);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            min-width: 120px;
+            box-shadow: 0 2px 4px var(--shadow-color);
+        }
+
+        .github-stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .github-stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .app-bar {
+                padding: 12px 16px;
+            }
+
+            .app-title {
+                font-size: 1.2rem;
+            }
+
+            .profile-header {
+                padding: 40px 16px;
+            }
+
+            .profile-header h1 {
+                font-size: 2rem;
+            }
+
+            .profile-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .github-stats {
+                gap: 10px;
+            }
+
+            .github-stat {
+                min-width: 100px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-bar">
+        <div class="app-title" id="username">Hooda Atwa</div>
+        <button class="theme-toggle" id="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <div class="app-container">
+        <div class="profile-header">
+            <img src="/api/placeholder/150/150" alt="Profile" id="profile-image" class="profile-image">
+            <h1 id="name">Hooda Atwa</h1>
+            <p id="bio">Software Developer</p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p id="about-text">Hello! I'm a passionate software developer with a focus on building innovative web applications and solutions. With expertise in various programming languages and frameworks, I strive to create efficient, user-friendly digital experiences.</p>
+                    <p>I'm constantly learning and exploring new technologies to expand my skill set and stay up-to-date with industry trends.</p>
+                </div>
+            </div>
+            <h3>Skills</h3>
+            <div class="skills-list" id="skills-list">
+                <div class="loader"></div>
+            </div>
+
+            <div class="github-stats" id="github-stats">
+                <!-- GitHub stats will be loaded here -->
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">GitHub Projects</h2>
+            <div class="projects-grid" id="projects-grid">
+                <div class="loader"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Donation</h2>
+            <p>If you appreciate my work and would like to support my projects, consider making a donation. Your support helps me continue developing open-source projects and creating valuable content.</p>
+            <div class="donation-methods">
+                <div class="donation-method">
+                    <div class="donation-icon">
+                        <i class="fab fa-paypal"></i>
+                    </div>
+                    <h3>PayPal</h3>
+                    <p>Support via PayPal</p>
+                    <a href="#" class="project-link">Donate</a>
+                </div>
+                <div class="donation-method">
+                    <div class="donation-icon">
+                        <i class="fab fa-bitcoin"></i>
+                    </div>
+                    <h3>Cryptocurrency</h3>
+                    <p>Bitcoin, Ethereum & more</p>
+                    <a href="#" class="project-link">Wallet Info</a>
+                </div>
+                <div class="donation-method">
+                    <div class="donation-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3>Credit Card</h3>
+                    <p>Secure payment gateway</p>
+                    <a href="#" class="project-link">Donate</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Contact Me</h2>
+            <div class="contact-options">
+                <div class="contact-option">
+                    <div class="contact-icon">
+                        <i class="fab fa-facebook"></i>
+                    </div>
+                    <h3>Facebook</h3>
+                    <p>Connect with me on Facebook</p>
+                    <a href="https://web.facebook.com/profile.php?id=100010077700135" class="project-link" target="_blank">Visit Profile</a>
+                </div>
+                <div class="contact-option">
+                    <div class="contact-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3>GitHub</h3>
+                    <p>Follow my projects on GitHub</p>
+                    <a href="https://github.com/hoodaatwa" class="project-link" target="_blank" id="github-link">Visit Profile</a>
+                </div>
+                <div class="contact-option">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p>Send me a direct message</p>
+                    <a href="mailto:contact@example.com" class="project-link" id="email-link">Send Email</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 <span id="footer-name">Hooda Atwa</span>. All rights reserved.</p>
+        <div class="social-links">
+            <a href="https://web.facebook.com/profile.php?id=100010077700135" class="social-link" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://github.com/hoodaatwa" class="social-link" target="_blank" id="footer-github-link"><i class="fab fa-github"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            
+            // Check for saved theme preference or use preferred color scheme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.body.classList.add('dark-mode');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+            
+            // Toggle theme
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                }
+            });
+        });
+
+        // Fetch GitHub user data
+        async function fetchGitHubUserData() {
+            try {
+                const response = await fetch('https://api.github.com/users/hoodaatwa');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user data');
+                }
+                
+                const userData = await response.json();
+                
+                // Update profile information
+                document.getElementById('username').textContent = userData.login;
+                document.getElementById('name').textContent = userData.name || userData.login;
+                document.getElementById('footer-name').textContent = userData.name || userData.login;
+                document.getElementById('bio').textContent = userData.bio || 'Software Developer';
+                
+                if (userData.email) {
+                    document.getElementById('email-link').href = `mailto:${userData.email}`;
+                }
+                
+                // Update profile image
+                if (userData.avatar_url) {
+                    document.getElementById('profile-image').src = userData.avatar_url;
+                }
+                
+                // Update about text if available
+                if (userData.bio) {
+                    document.getElementById('about-text').textContent = userData.bio;
+                }
+                
+                // Update GitHub stats
+                const statsContainer = document.getElementById('github-stats');
+                statsContainer.innerHTML = `
+                    <div class="github-stat">
+                        <div class="github-stat-value">${userData.public_repos}</div>
+                        <div class="github-stat-label">Repositories</div>
+                    </div>
+                    <div class="github-stat">
+                        <div class="github-stat-value">${userData.followers}</div>
+                        <div class="github-stat-label">Followers</div>
+                    </div>
+                    <div class="github-stat">
+                        <div class="github-stat-value">${userData.following}</div>
+                        <div class="github-stat-label">Following</div>
+                    </div>
+                `;
+                
+                // Update GitHub links
+                document.getElementById('github-link').href = userData.html_url;
+                document.getElementById('footer-github-link').href = userData.html_url;
+                
+            } catch (error) {
+                console.error('Error fetching GitHub user data:', error);
+            }
+        }
+
+        // Fetch GitHub projects and extract languages
+        async function fetchGitHubProjects() {
+            try {
+                const response = await fetch('https://api.github.com/users/hoodaatwa/repos');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch repositories');
+                }
+                
+                const repos = await response.json();
+                const projectsGrid = document.getElementById('projects-grid');
+                const skillsList = document.getElementById('skills-list');
+                
+                // Clear existing content
+                projectsGrid.innerHTML = '';
+                skillsList.innerHTML = '';
+                
+                // Extract unique languages
+                const languages = new Set();
+                const languagePromises = [];
+                
+                // First, get all languages from each repo
+                repos.forEach(repo => {
+                    if (repo.language) {
+                        languages.add(repo.language);
+                    }
+                    
+                    // Also fetch detailed language data for each repo
+                    languagePromises.push(
+                        fetch(repo.languages_url)
+                            .then(response => response.json())
+                            .then(data => {
+                                Object.keys(data).forEach(lang => languages.add(lang));
+                            })
+                            .catch(err => console.error(`Error fetching languages for ${repo.name}:`, err))
+                    );
+                });
+                
+                // Wait for all language requests to complete
+                await Promise.all(languagePromises);
+                
+                // Create skill tags
+                languages.forEach(language => {
+                    if (language) {
+                        const skillTag = document.createElement('div');
+                        skillTag.className = 'skill-tag';
+                        skillTag.textContent = language;
+                        skillsList.appendChild(skillTag);
+                    }
+                });
+                
+                // If no languages found, add a message
+                if (languages.size === 0) {
+                    skillsList.innerHTML = '<p>No programming languages found in repositories.</p>';
+                }
+                
+                // Add projects to grid (limit to 6)
+                const maxProjects = Math.min(repos.length, 6);
+                for (let i = 0; i < maxProjects; i++) {
+                    const repo = repos[i];
+                    const card = document.createElement('div');
+                    card.className = 'project-card';
+                    
+                    // Format date
+                    const updatedAt = new Date(repo.updated_at);
+                    const now = new Date();
+                    const diffTime = Math.abs(now - updatedAt);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    let timeAgo;
+                    
+                    if (diffDays < 1) {
+                        const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
+                        timeAgo = `${diffHours}h ago`;
+                    } else {
+                        timeAgo = `${diffDays}d ago`;
+                    }
+                    
+                    card.innerHTML = `
+                        <div class="project-card-content">
+                            <h3>${repo.name}</h3>
+                            <p>${repo.description || 'No description available'}</p>
+                            <div class="project-meta">
+                                <div class="project-meta-item">
+                                    <i class="fas fa-star"></i>
+                                    <span>${repo.stargazers_count}</span>
+                                </div>
+                                <div class="project-meta-item">
+                                    <i class="fas fa-code-branch"></i>
+                                    <span>${repo.forks_count}</span>
+                                </div>
+                                <div class="project-meta-item">
+                                    <i class="fas fa-history"></i>
+                                    <span>${timeAgo}</span>
+                                </div>
+                                ${repo.language ? `
+                                <div class="project-meta-item">
+                                    <i class="fas fa-code"></i>
+                                    <span>${repo.language}</span>
+                                </div>` : ''}
+                            </div>
+                            <a href="${repo.html_url}" class="project-link" target="_blank">View Project</a>
+                        </div>
+                    `;
+                    
+                    projectsGrid.appendChild(card);
+                }
+                
+                // If no repos found, add a message
+                if (repos.length === 0) {
+                    projectsGrid.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 20px;">
+                            <p>No GitHub repositories found.</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error fetching GitHub projects:', error);
+                document.getElementById('projects-grid').innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 20px;">
+                        <p>Failed to load GitHub projects. Please try again later.</p>
+                    </div>
+                `;
+                document.getElementById('skills-list').innerHTML = `
+                    <p>Failed to load skills. Please try again later.</p>
+                `;
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchGitHubUserData();
+            fetchGitHubProjects();
+        });
+    </script>
+</body>
+</html>
