@@ -342,6 +342,28 @@
                 padding: 10px;
             }
         }
+        .text-center {
+    text-align: center;
+}
+
+.view-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.view-more-btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.view-more-btn i {
+    font-size: 0.9rem;
+}
     </style>
 </head>
 <body>
@@ -382,6 +404,11 @@
             <div class="projects-grid" id="projects-grid">
                 <div class="loader"></div>
             </div>
+        <div class="text-center" style="margin-top: 30px;">
+        <a href="https://hoodaatwa.github.io/Main/" class="project-link view-more-btn">
+            <i class="fas fa-external-link-alt"></i> View More Projects
+        </a>
+    </div>
         </div>
 
         <div class="section">
